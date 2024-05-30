@@ -40,7 +40,29 @@ services:
       - "8001"
     networks:
       - network
-
+  #logger:
+  # depends_on:
+  #   - postgres
+  #   - redis
+  #   - ktor
+  # build:
+  #   context: state-log-collector
+  # networks:
+  #   - network
+  #producer:
+  #depends_on:
+  #   - postgres
+  #   - redis
+  #   - ktor
+  #   - logger
+  # ports:
+  #   - "13001:13001"
+  # expose:
+  #   - "13001"
+  # build:
+  #   context: env-event-producer
+  # networks:
+  #   - network
 networks:
   network:
     driver: bridge
