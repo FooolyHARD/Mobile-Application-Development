@@ -20,4 +20,4 @@ UML для ТЗ: https://drive.google.com/file/d/1kRv67lUsDyv0qh-GUjR1P0fGFw56xT
 ---
 
 Команда разработчиков (бтс с лева на право)
-![boys](./etc/2024-05-30 23.11.18.jpg)
+![boys](/etc/'2024-05-30 23.11.18.jpg')
