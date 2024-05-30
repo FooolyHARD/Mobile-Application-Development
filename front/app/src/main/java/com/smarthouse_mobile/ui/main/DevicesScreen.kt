@@ -44,10 +44,10 @@ private val devicesMap = mapOf<Int, List<Device>>(
 
 @Composable
 fun DevicesScreen(roomId: Int) {
-    val devicesViewModel : DevicesViewModel = viewModel()
+    val devicesViewModel : DevicesViewModel = viewModel(factory = DevicesViewModelFactory(roomId))
     Box(
         contentAlignment = Alignment.Center
     ) {
-        Text(text = devicesViewModel.roomId.toString(), modifier = Modifier.size(30.dp))
+        Text(text = roomId.toString(), modifier = Modifier.size(30.dp))
     }
 }
