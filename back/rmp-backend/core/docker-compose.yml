@@ -6,8 +6,8 @@ services:
     restart: always
     environment:
       POSTGRES_DB: dacha-core
-      POSTGRES_USER: busygind02
-      POSTGRES_PASSWORD: chh455
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
     volumes:
