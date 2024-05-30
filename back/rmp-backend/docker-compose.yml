@@ -1,0 +1,49 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: dacha-core
+      POSTGRES_USER: busygind02
+      POSTGRES_PASSWORD: chh455
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    volumes:
+      - my_db_volume:/var/lib/postgresql/data
+      - ./core/src/main/resources/db:/docker-entrypoint-initdb.d
+    networks:
+      - network
+  ktor:
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "9999:8080"
+    expose:
+      - "8080"
+    build:
+      context: core
+    networks:
+      - network
+  redis:
+    image: redis/redis-stack:latest
+    restart: always
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    expose:
+      - "6379"
+      - "8001"
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  my_db_volume:

@@ -1,0 +1,85 @@
+@startuml
+title "Smartest Hata (SH) interaction diagram"
+
+
+component [core] as Core <<Backend Component>>
+note left
+Connects "physical controllers" with user applications,
+send requests to physical world. Collects logs and saves
+data of users' using additional services
+end note
+
+
+interface "Secured HTTP" as SecuredMobileBackendHttpInterface
+note left
+<code>
+API to:
+    1. change state of any device in the house
+    2. receive info about the house state
+    3. register/login
+</code>
+end note
+
+SecuredMobileBackendHttpInterface --- Core
+
+database "Log Database" as LogDB <<Clickhouse>>
+interface "LogDb Interface" as LogDbInterface
+LogDB -- LogDbInterface
+
+component [log-backend] as LogBackend <<Backend Component>> {
+
+}
+LogBackend -> LogDbInterface
+
+component [auth-service] as Auth <<Backend Component>> {
+
+}
+
+queue "broker" as SHBroker <<Redis Broker>>
+interface "broker Interface" as BrokerInterface
+
+SHBroker - BrokerInterface
+
+BrokerInterface <-- Core
+BrokerInterface --> LogBackend
+
+database "Core DB" as SHDB <<PostgreSQL>>
+interface "DB\ninterface" as SHDBInterface
+SHDBInterface - SHDB
+
+component [core-db-backend] as CoreDb <<Backend Component>> {
+
+}
+
+interface "HTTP" as AuthHttpInterface
+Core -> AuthHttpInterface
+AuthHttpInterface -- Auth
+database "Auth DB" as AuthDB <<PostgreSQL>>
+interface "DB\ninterface" as AuthDBInterface
+Auth -> AuthDBInterface
+AuthDBInterface - AuthDB
+
+CoreDb -> SHDBInterface
+interface "HTTP" as DbBackendHttpInterface
+DbBackendHttpInterface - CoreDb
+Core --> DbBackendHttpInterface
+
+component [env-event-producer] as envEventProducer <<Environment events producer>>
+note top
+Implements a physical house controllers
+with in-memory state of the house
+(e.g. temperature, sensors states)
+end note
+
+
+envEventProducer --> BrokerInterface
+BrokerInterface -> Core
+
+component "Mobile Front" as mobileFront
+note top
+Web GUI to operate the house
+end note
+
+mobileFront --> SecuredMobileBackendHttpInterface : use with authentication
+
+@enduml

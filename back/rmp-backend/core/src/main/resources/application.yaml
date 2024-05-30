@@ -1,0 +1,12 @@
+ktor:
+  deployment:
+    port: 8080
+#    sslPort: 8443
+  application:
+    modules:
+      - com.dacha.core.ApplicationKt.module
+
+storage:
+  redis:
+    url: "redis://redis:6379"
+    topic: "logs"
