@@ -23,7 +23,7 @@ fun Application.module() {
     initDB()
 
     install(Routing) {
-        route("/dacha-core") {
+        route("/slon-house") {
             housesRoute()
             roomsRoute()
             devicesRoute()

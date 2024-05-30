@@ -24,10 +24,5 @@ fun Route.housesRoute() {
             val houseToSave = call.receive<House>()
             call.respond(houseService.saveHouse(houseToSave))
         }
-
-        get("/") {
-            call.respondText("Not implemented")
-            // todo получить дома по юзеру
-        }
     }
 }

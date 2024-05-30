@@ -6,7 +6,7 @@ info:
   description: ""
 
 servers:
-  - url: /dacha-core
+  - url: /slon-house
 
 paths:
   /houses:
