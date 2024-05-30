@@ -28,12 +28,10 @@ class StartActivity : ComponentActivity() {
                         }
                     }
                     composable("main_screen") {
-                        MainScreen {
-                            navController
-                        }
+                        MainScreen(navController)
                     }
                     composable("devices_screen/{roomId}") {
-                        DevicesScreen(it.arguments?.getInt("roomId") ?: -1)
+                        DevicesScreen(it.arguments?.getString("roomId")?.toInt() ?: -1)
                     }
                 }
             }
