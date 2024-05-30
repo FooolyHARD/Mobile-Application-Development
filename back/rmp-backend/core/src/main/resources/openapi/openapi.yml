@@ -272,10 +272,10 @@ components:
       properties:
         name:
           type: string
-          example: Барби Дом
+          example: Slon house
         userLogin:
           type: string
-          example: Яна
+          example: AlexG2004
     BaseID:
       type: string
       format: uuid
@@ -298,7 +298,7 @@ components:
       properties:
         name:
           type: string
-          example: Гостиная
+          example: Туалет
     Device:
       type: object
       allOf:
