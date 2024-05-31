@@ -1,53 +1,99 @@
 package com.smarthouse_mobile.ui.main
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LargeFloatingActionButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.smarthouse_mobile.R
+import com.smarthouse_mobile.simpleDevice
+import com.smarthouse_mobile.ui.main.model.Room
 import com.smarthouse_mobile.ui.main.model.devices.Color
 import com.smarthouse_mobile.ui.main.model.devices.Conditioner
 import com.smarthouse_mobile.ui.main.model.devices.ConditioningMode
 import com.smarthouse_mobile.ui.main.model.devices.Device
 import com.smarthouse_mobile.ui.main.model.devices.Lamp
+import com.smarthouse_mobile.user
 
-private val devicesMap = mapOf<Int, List<Device>>(
-    Pair(1, listOf(
-        Lamp("Lamp 1", true, true, Color.WHITE, 1),
-        Lamp("Lamp 2", true, true, Color.WHITE, 1),
-        Lamp("Lamp 3", true, true, Color.WHITE, 1),
-        Conditioner("cond", false, 20, ConditioningMode.FUN)
-    )),
-    Pair(2, listOf(
-        Lamp("Lamp 1", true, true, Color.WHITE, 1),
-        Lamp("Lamp 2", true, true, Color.WHITE, 1),
-        Lamp("Lamp 3", true, true, Color.WHITE, 1),
-        Conditioner("cond", false, 20, ConditioningMode.FUN)
-    )),
-    Pair(3, listOf(
-        Lamp("Lamp 1", true, true, Color.WHITE, 1),
-        Lamp("Lamp 2", true, true, Color.WHITE, 1),
-        Lamp("Lamp 3", true, true, Color.WHITE, 1),
-        Conditioner("cond", false, 20, ConditioningMode.FUN)
-    )),
-    Pair(4, listOf(
-        Lamp("Lamp 1", true, true, Color.WHITE, 1),
-        Lamp("Lamp 2", true, true, Color.WHITE, 1),
-        Lamp("Lamp 3", true, true, Color.WHITE, 1),
-        Conditioner("cond", false, 20, ConditioningMode.FUN)
-    ))
-)
-
-
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun DevicesScreen(roomId: Int) {
-    val devicesViewModel : DevicesViewModel = viewModel(factory = DevicesViewModelFactory(roomId))
-    Box(
-        contentAlignment = Alignment.Center
+fun DevicesScreen(houseId: Int, roomId: Int, navController: NavController) {
+    val devices = user.second[houseId]?.second?.get(roomId)?.second?.values?.toList() ?: emptyList()
+    Scaffold(
+        floatingActionButton = {
+            LargeFloatingActionButton(
+                onClick = {navController.navigate("houses/${houseId}/rooms/${roomId}/devices/add") },
+            ) {
+                Icon(Icons.Filled.Add, "Floating action button.")
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End,
     ) {
-        Text(text = roomId.toString(), modifier = Modifier.size(30.dp))
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+
+            // content padding
+            contentPadding = PaddingValues(
+                start = 12.dp,
+                top = 16.dp,
+                end = 12.dp,
+                bottom = 16.dp
+            ),
+            content = {
+                items(
+                    count = devices.size
+                ) { device ->
+                    val route = "houses/${houseId}/rooms/${roomId}/devices/${devices[device].id}"
+                    DeviceCard(device = devices[device], route, navController = navController)
+                }
+            }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DeviceCard(device: Device, route: String, navController: NavController) {
+    val image = painterResource(id = device.resourceImage)
+    Card(
+        modifier = Modifier.padding(PaddingValues(all = 5.dp)),
+        onClick = { navController.navigate(route) }
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Image(painter = image, contentDescription = "lol")
+            Text(text = device.name)
+        }
     }
 }

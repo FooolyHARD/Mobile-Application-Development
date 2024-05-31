@@ -7,8 +7,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.smarthouse_mobile.ui.auth.AuthScreen
+import com.smarthouse_mobile.ui.main.AddDeviceScreen
+import com.smarthouse_mobile.ui.main.AddHouseScreen
+import com.smarthouse_mobile.ui.main.AddRoomScreen
+import com.smarthouse_mobile.ui.main.DeviceInfoScreen
 import com.smarthouse_mobile.ui.main.DevicesScreen
+import com.smarthouse_mobile.ui.main.HousesScreen
 import com.smarthouse_mobile.ui.main.MainScreen
+import com.smarthouse_mobile.ui.main.RoomsScreen
 import com.smarthouse_mobile.ui.theme.SmartHouseMobileTheme
 
 class StartActivity : ComponentActivity() {
@@ -24,14 +30,48 @@ class StartActivity : ComponentActivity() {
                     composable("auth_screen") {
                         AuthScreen {
                             navController.popBackStack("auth_screen", true)
-                            navController.navigate("main_screen")
+                            navController.navigate("houses")
                         }
                     }
-                    composable("main_screen") {
+                    composable("houses") {
                         MainScreen(navController)
                     }
-                    composable("devices_screen/{roomId}") {
-                        DevicesScreen(it.arguments?.getString("roomId")?.toInt() ?: -1)
+                    composable("houses/add") {
+                        AddHouseScreen(navController)
+                    }
+                    composable("houses/{houseId}/rooms") {
+                        RoomsScreen(
+                            it.arguments?.getString("houseId")?.toInt() ?: -1,
+                            navController
+                        )
+                    }
+                    composable("houses/{houseId}/rooms/add") {
+                        AddRoomScreen(
+                            it.arguments?.getString("houseId")?.toInt() ?: -1,
+                            navController
+                        )
+                    }
+                    composable("houses/{houseId}/rooms/{roomId}") {
+                        DevicesScreen(
+                            it.arguments?.getString("houseId")?.toInt() ?: -1,
+                            it.arguments?.getString("roomId")?.toInt() ?: -1,
+                            navController
+                        )
+                    }
+                    composable("houses/{houseId}/rooms/{roomId}/devices/add") {
+                        AddDeviceScreen(
+                            it.arguments?.getString("houseId")?.toInt() ?: -1,
+                            it.arguments?.getString("roomId")?.toInt() ?: -1,
+                            navController
+                        )
+                    }
+                    composable("houses/{houseId}/rooms/{roomId}/devices/{deviceId}") {
+                        DeviceInfoScreen(
+                            it.arguments?.getString("houseId")?.toInt() ?: -1,
+                            it.arguments?.getString("roomId")?.toInt() ?: -1,
+                            it.arguments?.getString("deviceId")?.toInt() ?: -1,
+                            navController
+                        )
                     }
                 }
             }
