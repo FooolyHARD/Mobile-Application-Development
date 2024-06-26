@@ -12,9 +12,10 @@ import com.smarthouse_mobile.ui.main.AddHouseScreen
 import com.smarthouse_mobile.ui.main.AddRoomScreen
 import com.smarthouse_mobile.ui.main.DeviceInfoScreen
 import com.smarthouse_mobile.ui.main.DevicesScreen
-import com.smarthouse_mobile.ui.main.HousesScreen
 import com.smarthouse_mobile.ui.main.MainScreen
 import com.smarthouse_mobile.ui.main.RoomsScreen
+import com.smarthouse_mobile.ui.main.model.testUser
+import com.smarthouse_mobile.ui.main.model.user
 import com.smarthouse_mobile.ui.theme.SmartHouseMobileTheme
 
 class StartActivity : ComponentActivity() {
@@ -76,5 +77,6 @@ class StartActivity : ComponentActivity() {
                 }
             }
         }
+        user = testUser
     }
 }

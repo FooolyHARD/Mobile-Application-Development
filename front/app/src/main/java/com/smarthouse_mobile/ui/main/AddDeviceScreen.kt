@@ -1,7 +1,6 @@
 package com.smarthouse_mobile.ui.main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,8 +12,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Slider
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -25,17 +22,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.smarthouse_mobile.R
-import com.smarthouse_mobile.ui.main.model.House
-import com.smarthouse_mobile.ui.main.model.Room
 import com.smarthouse_mobile.ui.main.model.devices.Conditioner
 import com.smarthouse_mobile.ui.main.model.devices.Lamp
-import com.smarthouse_mobile.user
+import com.smarthouse_mobile.ui.main.model.user
 
 @Composable
 fun AddDeviceScreen(houseId: Int, roomId: Int, navController: NavController) {
@@ -89,8 +82,12 @@ fun AddDeviceScreen(houseId: Int, roomId: Int, navController: NavController) {
 
       Button(onClick = {
           when (deviceTypeState.intValue) {
-              0 -> user.second[houseId]?.second?.get(roomId)?.second?.put(user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, Lamp(user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, nameState.value))
-              1 -> user.second[houseId]?.second?.get(roomId)?.second?.put(user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, Conditioner(user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, nameState.value))
+              0 -> user.second[houseId]?.second?.get(roomId)?.second?.put(
+                  user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, Lamp(
+                      user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, nameState.value))
+              1 -> user.second[houseId]?.second?.get(roomId)?.second?.put(
+                  user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, Conditioner(
+                      user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, nameState.value))
           }
           navController.popBackStack()
       },

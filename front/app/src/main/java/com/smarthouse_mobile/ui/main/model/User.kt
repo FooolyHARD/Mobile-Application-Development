@@ -1,7 +1,5 @@
-package com.smarthouse_mobile
+package com.smarthouse_mobile.ui.main.model
 
-import com.smarthouse_mobile.ui.main.model.House
-import com.smarthouse_mobile.ui.main.model.Room
 import com.smarthouse_mobile.ui.main.model.devices.Color
 import com.smarthouse_mobile.ui.main.model.devices.Conditioner
 import com.smarthouse_mobile.ui.main.model.devices.ConditioningMode
@@ -10,7 +8,10 @@ import com.smarthouse_mobile.ui.main.model.devices.Lamp
 
 val simpleDevice = Lamp(1, "Lamp 1", true, true, Color.WHITE, 1)
 
-val user: Pair<Int, MutableMap<Int, Pair<House, MutableMap<Int, Pair<Room, MutableMap<Int, Device>>>>>> = Pair(0,
+lateinit var user: Pair<Int, MutableMap<Int, Pair<House, MutableMap<Int, Pair<Room, MutableMap<Int, Device>>>>>>
+
+
+val testUser: Pair<Int, MutableMap<Int, Pair<House, MutableMap<Int, Pair<Room, MutableMap<Int, Device>>>>>> = Pair(0,
     mutableMapOf(
         Pair(1,
             Pair(

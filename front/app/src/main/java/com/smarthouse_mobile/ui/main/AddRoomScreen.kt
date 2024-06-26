@@ -8,26 +8,20 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Slider
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.smarthouse_mobile.R
-import com.smarthouse_mobile.ui.main.model.House
 import com.smarthouse_mobile.ui.main.model.Room
-import com.smarthouse_mobile.user
+import com.smarthouse_mobile.ui.main.model.user
 
 @Composable
 fun AddRoomScreen(houseId: Int, navController: NavController) {
@@ -67,7 +61,9 @@ fun AddRoomScreen(houseId: Int, navController: NavController) {
         }
 
       Button(onClick = {
-          user.second[houseId]?.second?.put(user.second[houseId]?.second?.size?.plus(1) ?: -1, Pair(Room(user.second[houseId]?.second?.size?.plus(1) ?: -1, nameState.value, descriptionState.value), mutableMapOf()))
+          user.second[houseId]?.second?.put(
+              user.second[houseId]?.second?.size?.plus(1) ?: -1, Pair(Room(
+                  user.second[houseId]?.second?.size?.plus(1) ?: -1, nameState.value, descriptionState.value), mutableMapOf()))
           navController.popBackStack()
       },
           modifier = Modifier.padding(top = 30.dp)
