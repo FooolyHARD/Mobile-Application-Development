@@ -77,6 +77,6 @@ class StartActivity : ComponentActivity() {
                 }
             }
         }
-        user = testUser
+                                                                                                                                                                        user = testUser
     }
 }

@@ -28,13 +28,15 @@ import androidx.navigation.NavController
 import com.smarthouse_mobile.R
 import com.smarthouse_mobile.ui.main.model.devices.Conditioner
 import com.smarthouse_mobile.ui.main.model.devices.Lamp
+import com.smarthouse_mobile.ui.main.model.devices.Motor
 import com.smarthouse_mobile.ui.main.model.user
 
 @Composable
 fun AddDeviceScreen(houseId: Int, roomId: Int, navController: NavController) {
     val lampIcon = R.drawable.lamp_on
     val conditionerIcon = R.drawable.conditioner_off
-    val devices = listOf(Pair("Лампочка", lampIcon), Pair("Кондиционер", conditionerIcon))
+    val motorIcon = R.drawable.motor_on
+    val devices = listOf(Pair("Лампочка", lampIcon), Pair("Кондиционер", conditionerIcon), Pair("Мотор", motorIcon))
     val deviceTypeState = remember {
         mutableIntStateOf(-1)
     }
@@ -87,6 +89,9 @@ fun AddDeviceScreen(houseId: Int, roomId: Int, navController: NavController) {
                       user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, nameState.value))
               1 -> user.second[houseId]?.second?.get(roomId)?.second?.put(
                   user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, Conditioner(
+                      user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, nameState.value))
+              2 -> user.second[houseId]?.second?.get(roomId)?.second?.put(
+                  user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, Motor(
                       user.second[houseId]?.second?.get(roomId)?.second?.size?.plus(1) ?: -1, nameState.value))
           }
           navController.popBackStack()

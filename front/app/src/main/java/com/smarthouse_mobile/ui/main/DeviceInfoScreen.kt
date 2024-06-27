@@ -12,6 +12,7 @@ import com.smarthouse_mobile.ui.main.model.simpleDevice
 import com.smarthouse_mobile.ui.main.model.devices.Conditioner
 import com.smarthouse_mobile.ui.main.model.devices.Device
 import com.smarthouse_mobile.ui.main.model.devices.Lamp
+import com.smarthouse_mobile.ui.main.model.devices.Motor
 import com.smarthouse_mobile.ui.main.model.user
 
 @Composable
@@ -28,6 +29,7 @@ fun DeviceInfoCard(device: Device, navController: NavController) {
         when (device) {
             is Lamp -> LampScreen(lamp = device)
             is Conditioner -> ConditionerScreen(conditioner = device)
+            is Motor -> MotorScreen(motor = device)
             else -> Card(
                 //onClick = { navController.navigate("") }
             ) {
